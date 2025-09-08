@@ -26,8 +26,6 @@ public class ImageUploadService {
             Long filesize,
             Integer width,
             Integer height,
-            Double gpsLat,
-            Double gpsLon,
             OffsetDateTime shotAt) {
         ImageUpload iu = new ImageUpload();
         iu.setImageUrl(imageUrl);
@@ -37,8 +35,6 @@ public class ImageUploadService {
         iu.setFilesize(filesize);
         iu.setWidth(width);
         iu.setHeight(height);
-        iu.setGpsLat(gpsLat);
-        iu.setGpsLon(gpsLon);
         iu.setShotAt(shotAt != null ? shotAt.toInstant() : null);
         iu.setCreatedAt(OffsetDateTime.now().toInstant());
         iu.setStatus(ImageUpload.Status.PENDING);
@@ -64,7 +60,6 @@ public class ImageUploadService {
                 uploaderId,
                 "USER",
                 file.getSize(),
-                null, null,
                 null, null,
                 null);
     }

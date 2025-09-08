@@ -1,9 +1,10 @@
 package com.github.connorb0531.mushroomvision.repository;
+
 import com.github.connorb0531.mushroomvision.model.Mushroom;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface MushroomRepository extends JpaRepository<Mushroom, Long> {
-    List<Mushroom> findByGenusIgnoreCase(String genus);
+    Optional<Mushroom> findByCommonNameIgnoreCase(String commonName);
 }

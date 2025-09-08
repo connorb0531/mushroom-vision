@@ -11,12 +11,11 @@ public class Mushroom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String genus;
-    private String species;
+    private String commonName;
 
     public Mushroom() {}
-    public Mushroom(String genus, String species) {
-        this.genus = genus; this.species = species;
+    public Mushroom(String commonName) {
+        this.commonName = commonName;
     }
 
 }

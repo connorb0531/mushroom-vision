@@ -39,12 +39,6 @@ public class ImageUpload {
     private Integer height;               // pixels (null only if probe fails)
 
     @Column
-    private Double gpsLat;
-
-    @Column
-    private Double gpsLon;
-
-    @Column
     private Instant shotAt;               // EXIF DateTimeOriginal if available
 
     @Column(nullable = false)

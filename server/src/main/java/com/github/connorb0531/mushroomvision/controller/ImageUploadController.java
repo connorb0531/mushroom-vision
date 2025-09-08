@@ -17,8 +17,8 @@ import java.time.OffsetDateTime;
 
 @RestController
 @RequestMapping("/api/images")
-@CrossOrigin(origins = "http://localhost:5173/")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ImageUploadController {
 
     private final ImageUploadService service;
@@ -36,7 +36,7 @@ public class ImageUploadController {
     public ImageUpload createFromUrl(@RequestBody CreateFromUrlRequest req) {
         return service.createFromUrl(
                 req.imageUrl(), req.uploaderId(), req.source(), req.filesize(),
-                req.width(), req.height(), req.gpsLat(), req.gpsLon(), req.shotAt());
+                req.width(), req.height(), req.shotAt());
     }
 
     @GetMapping
