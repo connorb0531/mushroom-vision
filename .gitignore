@@ -1,6 +1,8 @@
 # ---- OS / Editor junk ----
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # IntelliJ / JetBrains
 .idea/
@@ -50,11 +52,26 @@ lerna-debug.log*
 
 # ---- Java / Maven ----
 **/target/
+build/       
 
-# Keep Maven wrapper files TRACKED (do NOT ignore these)
-# .mvn/wrapper/maven-wrapper.jar
-# mvnw
-# mvnw.cmd
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.ipynb_checkpoints
 
-# ---- Misc build artifacts ----
-build/          # if any tool generates this at project root
+# Virtual environments
+.venv/
+venv/
+
+# ---- Test / Coverage ----
+.coverage
+*.coverage
+coverage.xml
+htmlcov/
+
+# ---- data ----
+ML/data/processed/
+ML/data/raw/
