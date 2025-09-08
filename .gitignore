@@ -1,0 +1,60 @@
+# ---- OS / Editor junk ----
+.DS_Store
+Thumbs.db
+
+# IntelliJ / JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code
+.vscode/
+
+# Eclipse / STS
+.classpath
+.project
+.settings/
+.apt_generated/
+.factorypath
+.springBeans
+.sts4-cache
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# ---- Logs ----
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ---- Env / secrets ----
+**/.env
+**/.env.*    # .env.local, .env.development, etc.
+
+# ---- Node / Frontend ----
+**/node_modules/
+**/dist/
+**/dist-ssr/
+# Optional caches commonly used by tools
+**/.turbo/
+**/.parcel-cache/
+**/.cache/
+
+# ---- Java / Maven ----
+**/target/
+
+# Keep Maven wrapper files TRACKED (do NOT ignore these)
+# .mvn/wrapper/maven-wrapper.jar
+# mvnw
+# mvnw.cmd
+
+# ---- Misc build artifacts ----
+build/          # if any tool generates this at project root
