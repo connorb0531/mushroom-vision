@@ -1,4 +1,4 @@
-package com.github.connorb0531.config;
+package com.github.connorb0531.mushroomvision.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
