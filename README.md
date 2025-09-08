@@ -32,7 +32,6 @@ cd ./server
 ```
 
 
-
 ## Client (React + Vite)
 
 Create a `.env` file inside `client` directory:
@@ -46,6 +45,21 @@ VITE_API_BASE_URL=http://localhost:8080
 cd ./client
 npm install
 ```
+
+## ML
+### Dataset
+- Download mushroom dataset from [[link](https://www.kaggle.com/datasets/daniilonishchenko/mushrooms-images-classification-215)]
+- Extract into `ML/data/raw/`
+- Run `src/data/preprocess.py` to resize/normalize
+
+## POST mushroom data to DB (if needed)
+
+```
+curl -X POST "{BACKEND_URL}/api/mushroom/ingest?upsert=true" \
+  -H "Content-Type: application/json" \
+  --data-binary @{PATH_TO_JSON_FILE}
+```
+
 
 ### Run dev server
 ```
