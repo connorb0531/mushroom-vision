@@ -21,8 +21,10 @@ DB_USERNAME=
 DB_PASSWORD=
 cors.allowed-origins=
 ```
+
 ### Build
-```cd ./server
+```
+cd ./server
 ./mvnw clean package -DskipTests
 ```
 
@@ -59,16 +61,23 @@ npm run dev
 ### Dataset
 - Download mushroom dataset from [[link](https://www.kaggle.com/datasets/daniilonishchenko/mushrooms-images-classification-215)]
 - Extract into `ML/data/raw/`
+- remove `data/data`
 - Run `src/data/preprocess.py` to resize/normalize
 
 ### Install dependencies
-#### cpu version
+```
+pip install opencv-python
+```
+#### For TensorFlow:
+- cpu version
 ```
 pip install tensorflow #cpu
 ```
-#### gpu version
+- gpu version
 ```
 pip install tensorflow[and-cuda] 
+
+
 ```
 
 ## POST mushroom data to DB (if needed)
