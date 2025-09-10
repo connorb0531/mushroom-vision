@@ -19,6 +19,7 @@ Create a `.env` file inside `server` directory:
 DB_URL=
 DB_USERNAME=
 DB_PASSWORD=
+cors.allowed-origins=
 ```
 ### Build
 ```cd ./server
@@ -44,6 +45,14 @@ VITE_API_BASE_URL=http://localhost:8080
 ```
 cd ./client
 npm install
+npm i -D tailwindcss @tailwindcss/postcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+### Run
+```
+cd ./client
+npm run dev
 ```
 
 ## ML
@@ -52,17 +61,20 @@ npm install
 - Extract into `ML/data/raw/`
 - Run `src/data/preprocess.py` to resize/normalize
 
+### Install dependencies
+#### cpu version
+```
+pip install tensorflow #cpu
+```
+#### gpu version
+```
+pip install tensorflow[and-cuda] 
+```
+
 ## POST mushroom data to DB (if needed)
 
 ```
 curl -X POST "{BACKEND_URL}/api/mushroom/ingest?upsert=true" \
   -H "Content-Type: application/json" \
   --data-binary @{PATH_TO_JSON_FILE}
-```
-
-
-### Run dev server
-```
-cd ./client
-npm run dev
 ```
