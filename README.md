@@ -46,7 +46,7 @@ VITE_API_BASE_URL=http://localhost:8080
 cd ./client
 npm install
 npm i -D tailwindcss @tailwindcss/postcss postcss autoprefixer
-npx tailwindcss init -p
+npm install @iconify/react @iconify-icons/logos
 ```
 
 ### Run
