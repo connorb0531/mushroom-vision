@@ -1,14 +1,17 @@
 import { useCallback, useRef, useState } from "react";
 
 export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
+    // State for file, preview, upload progress, and messages
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState("");
     const [uploading, setUploading] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [success, setSuccess] = useState("");   // success message
+    const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
+    const [isDragging, setIsDragging] = useState(false); // tracks if a file is dragged over
     const inputRef = useRef(null);
 
+    // Validate and set selected file
     const onFilesPicked = useCallback(
         (files) => {
             setError("");
@@ -31,17 +34,21 @@ export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
         [maxSizeMB]
     );
 
+    // Handle drag-and-drop
     const onDrop = useCallback(
         (e) => {
             e.preventDefault();
             e.stopPropagation();
+            setIsDragging(false);
             onFilesPicked(e.dataTransfer.files);
         },
         [onFilesPicked]
     );
 
+    // Open hidden file input
     const onBrowseClick = () => inputRef.current?.click();
 
+    // Reset current selection
     const clearSelection = () => {
         setFile(null);
         setPreviewUrl("");
@@ -51,6 +58,7 @@ export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
         if (inputRef.current) inputRef.current.value = "";
     };
 
+    // Perform upload with XHR
     const upload = async () => {
         if (!file) return;
         if (!uploadUrl) {
@@ -97,22 +105,30 @@ export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
         }
     };
 
+    // Dropzone style, darkens while dragging
     const dropZoneClass =
         "mx-auto w-full max-w-xl grid place-items-center min-h-72 " +
         "border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer " +
-        "bg-white shadow-sm hover:shadow transition";
+        `shadow-sm transition ${isDragging ? "bg-white/40" : "bg-white/20"} hover:shadow`;
 
     return (
         <>
             <div
                 className={dropZoneClass}
-                onDragOver={(e) => e.preventDefault()}
+                onDragOver={(e) => {
+                    e.preventDefault();
+                    setIsDragging(true);
+                }}
+                onDragLeave={(e) => {
+                    e.preventDefault();
+                    setIsDragging(false);
+                }}
                 onDrop={onDrop}
-                // Make the container open the file picker ONLY when no file is selected
                 onClick={!file ? onBrowseClick : undefined}
                 role={!file ? "button" : undefined}
                 tabIndex={!file ? 0 : -1}
             >
+                {/* Hidden file input */}
                 <input
                     ref={inputRef}
                     type="file"
@@ -121,6 +137,7 @@ export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
                     className="hidden"
                 />
 
+                {/* Show placeholder if no file, otherwise show preview */}
                 {!file ? (
                     <div className="space-y-1">
                         <div className="text-lg font-medium">Drop image here</div>
@@ -131,7 +148,7 @@ export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
                         <img
                             src={previewUrl}
                             alt="preview"
-                            className="max-w-full rounded-xl shadow-lg"
+                            className="max-w-full max-h-96 rounded-xl shadow-lg"
                             onLoad={() => URL.revokeObjectURL(previewUrl)}
                         />
 
@@ -139,14 +156,15 @@ export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
                             {file.name} • {(file.size / 1024 / 1024).toFixed(2)} MB
                         </div>
 
+                        {/* Action buttons */}
                         <div className="flex gap-3">
                             <button
                                 disabled={uploading}
                                 onClick={(e) => {
-                                    e.stopPropagation(); // prevent container click
+                                    e.stopPropagation();
                                     upload();
                                 }}
-                                className="inline-flex items-center rounded-full bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                                className="inline-flex items-center rounded-full px-4 py-2 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
                             >
                                 {uploading ? "Uploading…" : "Upload"}
                             </button>
@@ -154,7 +172,7 @@ export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
                             <button
                                 disabled={uploading}
                                 onClick={(e) => {
-                                    e.stopPropagation(); // prevent container click
+                                    e.stopPropagation();
                                     clearSelection();
                                 }}
                                 className="inline-flex items-center rounded-full border border-slate-300 bg-white px-4 py-2 font-semibold text-slate-800 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
@@ -163,11 +181,12 @@ export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
                             </button>
                         </div>
 
+                        {/* Progress bar */}
                         {uploading && (
                             <div className="w-full max-w-md">
                                 <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
                                     <div
-                                        className="h-full bg-blue-600 transition-[width]"
+                                        className="h-full transition-[width]"
                                         style={{ width: `${progress}%` }}
                                     />
                                 </div>
@@ -180,6 +199,7 @@ export default function ImageUploader({ uploadUrl, maxSizeMB = 15 }) {
                 )}
             </div>
 
+            {/* Success and error messages */}
             {success && (
                 <div className="mt-4 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-700">
                     {success}

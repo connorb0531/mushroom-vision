@@ -1,4 +1,26 @@
-# Mushroom Vision — Dev Setup
+# Mushroom Vision
+
+A full-stack project for uploading mushroom images and running ML predictions.
+
+## Tech Stack
+- Spring Boot (Java) – backend REST API
+- React (Vite) – frontend uploader
+- ML worker (Python, TensorFlow) – prediction service
+- PostgreSQL – database
+
+### API (Spring Boot)
+- `POST /api/images` – create an image record
+- `GET /api/images` / `/:id` – list or fetch image + prediction
+- `POST /api/predictions` – attach model result
+- `POST /api/feedback` – user feedback on a prediction
+
+### Frontend (Vite + React + Tailwind)
+- Image Upload page (file/URL), shows prediction result
+- Simple, responsive UI; configurable API base URL
+
+### ML (TensorFlow) — planned
+- Separate FastAPI service for `/predict`
+- Confidence thresholds + abstain on low confidence
 
 ## Prerequisites
 - Java 22
@@ -8,7 +30,7 @@
 
 ---
 
-## Server (Spring Boot)
+## Server (Spring Boot) Setup
 
 
 ### Environment variables (.env)
@@ -35,7 +57,7 @@ cd ./server
 ```
 
 
-## Client (React + Vite)
+## Client (React + Vite + Tailwind) Setup
 
 Create a `.env` file inside `client` directory:
 
@@ -48,7 +70,7 @@ VITE_API_BASE_URL=http://localhost:8080
 cd ./client
 npm install
 npm i -D tailwindcss @tailwindcss/postcss postcss autoprefixer
-npx tailwindcss init -p
+npm install @iconify/react @iconify-icons/logos
 ```
 
 ### Run
