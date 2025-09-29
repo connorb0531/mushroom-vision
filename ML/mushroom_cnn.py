@@ -9,6 +9,10 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 import matplotlib.pyplot as plt
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 class MushroomDataset(Dataset):
     def __init__(self, image_paths, labels, transform=None):
@@ -190,8 +194,14 @@ def main():
     torch.manual_seed(42)
     np.random.seed(42)
     
+    # Load configuration from environment
+    data_dir = os.getenv('DATA_DIR', 'data')
+    image_size = int(os.getenv('IMAGE_SIZE', '256'))
+    train_epochs = int(os.getenv('TRAIN_EPOCHS', '20'))
+    batch_size = int(os.getenv('TRAIN_BATCH_SIZE', '32'))
+    learning_rate = float(os.getenv('TRAIN_LEARNING_RATE', '0.001'))
+    
     # Data loading
-    data_dir = 'data'
     image_paths, labels = load_data(data_dir)
     
     print(f'Total images loaded: {len(image_paths)}')
@@ -200,7 +210,7 @@ def main():
     
     # Data augmentation and preprocessing
     transform_train = transforms.Compose([
-        transforms.Resize((256, 256)),
+        transforms.Resize((image_size, image_size)),
         transforms.RandomHorizontalFlip(p=0.5),
         transforms.RandomRotation(10),
         transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
@@ -209,7 +219,7 @@ def main():
     ])
     
     transform_test = transforms.Compose([
-        transforms.Resize((256, 256)),
+        transforms.Resize((image_size, image_size)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
@@ -228,9 +238,9 @@ def main():
     test_dataset = MushroomDataset(test_paths, test_labels, transform_test)
     
     # Create data loaders
-    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
-    test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     
     # Create model
     model = MushroomCNN(num_classes=2)
@@ -238,7 +248,7 @@ def main():
     
     # Train model
     print('Starting training...')
-    train_losses, val_accuracies = train_model(model, train_loader, val_loader)
+    train_losses, val_accuracies = train_model(model, train_loader, val_loader, train_epochs, learning_rate)
     
     # Evaluate model
     print('\nEvaluating on test set...')

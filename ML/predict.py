@@ -7,6 +7,10 @@ import os
 from PIL import Image
 import torch
 from torchvision import transforms
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Import model definition
 from mushroom_cnn import MushroomCNN
@@ -26,8 +30,12 @@ def preprocess_image_b64(b64: str) -> torch.Tensor:
         b64 = b64.split(',')[1]
     image_bytes = base64.b64decode(b64)
     image = Image.open(io.BytesIO(image_bytes)).convert('RGB')
+    
+    # Get image size from environment
+    image_size = int(os.getenv('IMAGE_SIZE', '256'))
+    
     transform = transforms.Compose([
-        transforms.Resize((256, 256)),
+        transforms.Resize((image_size, image_size)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
