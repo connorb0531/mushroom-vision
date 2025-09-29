@@ -1,0 +1,144 @@
+.classification-result {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+.classification-result.loading {
+  text-align: center;
+  padding: 3rem;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4CAF50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.result-header.edible {
+  background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+  border: 2px solid #4CAF50;
+}
+
+.result-header.poisonous {
+  background: linear-gradient(135deg, #ffeaea, #fff0f0);
+  border: 2px solid #f44336;
+}
+
+.result-icon {
+  font-size: 3rem;
+}
+
+.result-text {
+  flex: 1;
+}
+
+.prediction {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.confidence {
+  margin: 0.5rem 0 0 0;
+  font-size: 1.1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.probability-bars {
+  margin-bottom: 2rem;
+}
+
+.probability-item {
+  margin-bottom: 1rem;
+}
+
+.probability-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.probability-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.probability-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 4px;
+}
+
+.probability-fill.edible {
+  background: linear-gradient(90deg, #4CAF50, #66BB6A);
+}
+
+.probability-fill.poisonous {
+  background: linear-gradient(90deg, #f44336, #ef5350);
+}
+
+.result-warning {
+  margin-top: 1.5rem;
+}
+
+.warning {
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.edible-warning {
+  background: #fff3cd;
+  border-left-color: #ffc107;
+  color: #856404;
+}
+
+.poisonous-warning {
+  background: #f8d7da;
+  border-left-color: #dc3545;
+  color: #721c24;
+}
+
+.warning p {
+  margin: 0;
+  line-height: 1.5;
+}
