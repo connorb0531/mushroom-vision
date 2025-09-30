@@ -1,0 +1,56 @@
+# Root Git Ignore for Mushroom Vision (Java + Node + Python)
+
+# macOS
+.DS_Store
+
+# Node / React (client)
+client/node_modules/
+client/.pnp
+client/.pnp.js
+client/coverage/
+client/build/
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+
+# Allow .env files for configuration
+!client/.env
+!server/.env
+!ML/.env
+
+# Java / Maven (server)
+server/target/
+server/.classpath
+server/.project
+server/.settings/
+server/.idea/
+server/.mvn/wrapper/maven-wrapper.jar
+server/.mvn/wrapper/maven-wrapper.properties
+server/.mvn/wrapper/MavenWrapperDownloader.java
+
+# IntelliJ / VS Code
+.idea/
+.vscode/
+*.iml
+
+# Python / ML
+ML/__pycache__/
+ML/*.pyc
+ML/.venv/
+ML/venv/
+ML/.env
+ML/training_history.png
+ML/mushroom_cnn_model.pth
+
+# Data (keep directory, ignore files)
+ML/data/**/*
+
+# Logs
+logs/
+*.log
+
+
