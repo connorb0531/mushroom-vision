@@ -8,18 +8,6 @@ A full-stack project for uploading mushroom images and running ML predictions us
 - PyTorch (Python) – CNN model for mushroom classification
 - PostgreSQL – database (optional)
 
-## Project Structure
-```
-mushroom-vision/
-├── client/          # React frontend
-├── server/          # Spring Boot backend
-├── ML/              # PyTorch ML models and training
-│   ├── data/        # Dataset (gitignored)
-│   ├── models/      # Trained models (gitignored)
-│   ├── predict.py   # Inference script
-│   └── train_model.py # Training script
-└── training_history.png # Training metrics visualization
-```
 
 ### API (Spring Boot)
 - `POST /api/classifications/classify-file` – upload image and get classification
@@ -97,8 +85,8 @@ npm run dev
 
 ## ML (PyTorch)
 ### Dataset
-- Download mushroom dataset from [[link](https://www.kaggle.com/datasets/daniilonishchenko/mushrooms-images-classification-215)]
-- Extract into `ML/data/raw/`
+- Download mushroom dataset from [[link](https://www.kaggle.com/datasets/marcosvolpato/edible-and-poisonous-fungi?resource=download)]
+- Extract into `ML/data/`
 - Run `ML/train_model.py` to train the model
 - Training progress is saved as `training_history.png`
 
@@ -120,16 +108,6 @@ python train_model.py
 - Custom CNN with convolutional layers, batch normalization, and dropout
 - Input: 256x256 RGB images
 - Output: Binary classification (edible/poisonous)
-- Training visualization: `training_history.png`
-
-### Training Visualization
-The `training_history.png` file contains:
-- Training and validation accuracy curves
-- Training and validation loss curves
-- Model performance metrics over epochs
-- Helps visualize model convergence and overfitting
-
-![Training History](training_history.png)
 
 ## Quick Start
 
@@ -151,12 +129,4 @@ cd server
 ```bash
 cd client
 npm start
-```
-
-## POST mushroom data to DB (if needed)
-
-```
-curl -X POST "{BACKEND_URL}/api/mushroom/ingest?upsert=true" \
-  -H "Content-Type: application/json" \
-  --data-binary @{PATH_TO_JSON_FILE}
 ```
