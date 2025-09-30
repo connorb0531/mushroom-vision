@@ -1,6 +1,6 @@
 {
   "short_name": "Mushroom Vision",
-  "name": "Mushroom Vision - AI Mushroom Classification",
+  "name": "Mushroom Vision - CNN Mushroom Classification",
   "icons": [
     {
       "src": "favicon.ico",
