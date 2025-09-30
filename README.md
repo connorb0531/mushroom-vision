@@ -80,7 +80,7 @@ npm install @iconify/react @iconify-icons/logos
 ### Run
 ```
 cd ./client
-npm run dev
+npm start dev
 ```
 
 ## ML (PyTorch)
