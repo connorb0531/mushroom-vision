@@ -43,7 +43,7 @@ public class ClassificationService {
         
         return ClassificationResponse.builder()
             .success(true)
-            .message("Classification completed and saved")
+            .message("Classification completed and saved: " + savedResult.getId())
             .result(mlResponse.getResult())
             .build();
     }

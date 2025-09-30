@@ -7,6 +7,7 @@ from PIL import Image
 import io
 import base64
 import numpy as np
+import os
 from mushroom_cnn import MushroomCNN
 
 app = Flask(__name__)
@@ -125,4 +126,6 @@ def predict_file():
 if __name__ == '__main__':
     print("Starting Mushroom Vision ML API...")
     print(f"Using device: {device}")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Set debug=False for production
+    debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(host='0.0.0.0', port=5000, debug=debug_mode)

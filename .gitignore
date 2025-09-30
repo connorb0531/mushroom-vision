@@ -17,10 +17,12 @@ client/npm-debug.log*
 client/yarn-debug.log*
 client/yarn-error.log*
 
-# Allow .env files for configuration
-!client/.env
-!server/.env
-!ML/.env
+# Environment files - NEVER commit these
+client/.env
+server/.env
+ML/.env
+*.env
+.env*
 
 # Java / Maven (server)
 server/target/
